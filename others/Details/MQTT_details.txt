@@ -1,0 +1,37 @@
+
+----------------------------------------------------------------------------------------------------------------------------------
+					Android Log Snippet
+----------------------------------------------------------------------------------------------------------------------------------
+10-31 23:57:13.597  2785  2841 W ActivityManager: Activity pause timeout for ActivityRecord{a2283d1 u0 com.frost.mqtttutorial/.MainActivity t54651}
+10-31 23:57:13.798 24333 24333 D Mqtt    : Read Ca
+10-31 23:57:13.812 24333 24333 D Mqtt    : ca=EMAILADDRESS=nobody@example.net, OU=generate-CA, O=OwnTracks.org, CN=An MQTT broker
+10-31 23:57:13.913  2785  2880 I WindowManager: Failed to capture screenshot of Token{745d6a4 ActivityRecord{a2283d1 u0 com.frost.mqtttutorial/.MainActivity t54651}} appWin=Window{87b0341 u0 Splash Screen com.frost.mqtttutorial} drawState=4
+10-31 23:57:15.283 24333 24380 D AlarmPingSender: Register alarmreceiver to MqttServiceMqttService.pingSender.ExampleAndroidClient
+10-31 23:57:15.309 24333 24333 W Mqtt    : Subscribed!
+10-31 23:57:15.448   878   878 D SFPerfTracer:        layers: (3:9) (StatusBar#0 (0xade34000): 87:57373) (com.android.systemui.ImageWallpaper#0 (0xaddf900
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+					Certificate generation script
+----------------------------------------------------------------------------------------------------------------------------------
+
+$ wget https://github.com/owntracks/tools/raw/master/TLS/generate-CA.sh .
+$ bash ./generate-CA.sh
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+					Additional Reference Link
+----------------------------------------------------------------------------------------------------------------------------------
+https://openest.io/en/2020/01/03/mqtts-how-to-use-mqtt-with-tls/
+https://github.com/eclipse/paho.mqtt.android/issues/217#issuecomment-312452585
+https://www.vultr.com/docs/how-to-install-mosquitto-mqtt-broker-server-on-ubuntu-16-04
+https://wildanmsyah.wordpress.com/2017/05/11/mqtt-android-client-tutorial/
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+					Sample Commands
+----------------------------------------------------------------------------------------------------------------------------------
+
+mosquitto -v -c /etc/mosquitto/mosquitto.conf
+mosquitto_sub -p 8883 --cafile ca.crt --cert mohanish-ThinkPad-T440.crt --key mohanish-ThinkPad-T440.key -h 192.168.0.191 -t /test_return
+mosquitto_pub -p 8883 --cafile ca.crt --cert mohanish-ThinkPad-T440.crt --key mohanish-ThinkPad-T440.key -h 192.168.0.191 -m yes -t /test
