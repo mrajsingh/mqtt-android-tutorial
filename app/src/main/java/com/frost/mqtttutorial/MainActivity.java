@@ -9,6 +9,7 @@ import com.github.mikephil.charting.charts.LineChart;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import helpers.ChartHelper;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         dataReceived = (TextView) findViewById(R.id.dataReceived);
         chart = (LineChart) findViewById(R.id.chart);
-        mChart = new ChartHelper(chart);
+        //mChart = new ChartHelper(chart);
 
         startMqtt();
     }
@@ -50,9 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-                Log.w("Debug",mqttMessage.toString());
+                Log.w("Mqtt",mqttMessage.toString());
                 dataReceived.setText(mqttMessage.toString());
-                mChart.addEntry(Float.valueOf(mqttMessage.toString()));
+                //mChart.addEntry(Float.valueOf(mqttMessage.toString()));
+                MqttMessage msg = new MqttMessage("Hello".getBytes());
+                Log.w("Mqtt","Message to be published"+msg.toString());
+
+                    MqttException e= (MqttException) mqttHelper.mqttAndroidClient.publish("/test_return", msg);
+                    Log.w("Mqtt","Publish failed with Exception"+e.getCause());
+
+
             }
 
             @Override
